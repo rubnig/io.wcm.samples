@@ -12,8 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,7 +22,7 @@ class NestedConfigModelTest {
 
     @BeforeEach
     void setUp() {
-        context.registerInjectActivateService(PagePersistenceStrategy.class, Collections.singletonMap("enabled", true));
+        context.registerInjectActivateService(PagePersistenceStrategy.class, "enabled", true);
     }
 
     @Test
@@ -32,7 +30,7 @@ class NestedConfigModelTest {
         // given
         MockContextAwareConfig.registerAnnotationClasses(context, NestedConfig.class);
         MockContextAwareConfig.writeConfiguration(context, context.currentPage().getPath(), NestedConfig.class,
-    "stringParam", "value1",
+            "stringParam", "value1",
             "sub", ImmutableList.of(
                     ImmutableValueMap.of("subStringParam", "v1", "intParam", 5,
                             "stringArrayParam", new String[] {"v1a","v1b"}),
